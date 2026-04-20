@@ -6,7 +6,7 @@ Cross-checked against WitMotion manual v2.5 and the Concordia MTCAdapters driver
 
 from dataclasses import dataclass
 
-REGISTER_TYPE_HOLDING = 3
+REGISTER_TYPE_HOLDING = 4
 
 SAVE_REG = 0x00
 BAUD_REG = 0x04

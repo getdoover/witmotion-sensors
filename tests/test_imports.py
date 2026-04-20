@@ -1,9 +1,4 @@
-"""Smoke tests for the template application.
-
-These validate that modules are importable, the config schema is well-formed,
-the Tags/UI classes subclass the correct bases, and the config export entry
-point runs end-to-end.
-"""
+"""Smoke tests: modules import, classes wire up to pydoover base classes."""
 
 import json
 
@@ -13,59 +8,55 @@ from pydoover.ui import UI
 
 
 def test_import_app():
-    from app_template.application import SampleApplication
-    assert SampleApplication.config_cls is not None
-    assert SampleApplication.tags_cls is not None
-    assert SampleApplication.ui_cls is not None
+    from witmotion_sensors.application import WitmotionSensorApp
+
+    assert WitmotionSensorApp.config_cls is not None
+    assert WitmotionSensorApp.tags_cls is not None
+    assert WitmotionSensorApp.ui_cls is not None
 
 
-def test_config_schema():
-    from app_template.app_config import SampleConfig
-    assert issubclass(SampleConfig, Schema)
+def test_config_is_schema():
+    from witmotion_sensors.app_config import WitmotionSensorConfig
 
-    schema = SampleConfig.to_schema()
-    assert isinstance(schema, dict)
-    assert schema["type"] == "object"
-    assert len(schema["properties"]) > 0
-    assert "a_funny_message" in schema["required"]
-    assert "simulator_app_key" in schema["required"]
+    assert issubclass(WitmotionSensorConfig, Schema)
 
 
-def test_tags():
-    from app_template.app_tags import SampleTags
-    assert issubclass(SampleTags, Tags)
+def test_tags_is_tags():
+    from witmotion_sensors.app_tags import WitmotionSensorTags
+
+    assert issubclass(WitmotionSensorTags, Tags)
 
 
-def test_ui():
-    from app_template.app_ui import SampleUI
-    assert issubclass(SampleUI, UI)
+def test_ui_is_ui():
+    from witmotion_sensors.app_ui import WitmotionSensorUI
 
-
-def test_state_machine():
-    from app_template.app_state import SampleState
-    state = SampleState()
-    assert state.state == "off"
+    assert issubclass(WitmotionSensorUI, UI)
 
 
 def test_config_export(tmp_path):
-    from app_template.app_config import SampleConfig
+    from witmotion_sensors.app_config import WitmotionSensorConfig
 
     fp = tmp_path / "doover_config.json"
-    SampleConfig.export(fp, "sample_application")
-
+    WitmotionSensorConfig.export(fp, "witmotion_sensors")
     data = json.loads(fp.read_text())
-    assert "sample_application" in data
-    assert "config_schema" in data["sample_application"]
-    assert "properties" in data["sample_application"]["config_schema"]
+    assert "witmotion_sensors" in data
+    schema = data["witmotion_sensors"]["config_schema"]
+    assert "modbus_config" in schema["properties"]
+    assert "modbus_id" in schema["properties"]
+    assert "poll_period" in schema["properties"]
 
 
 def test_ui_export(tmp_path):
-    from app_template.app_ui import SampleUI
+    from witmotion_sensors.app_ui import WitmotionSensorUI
 
     fp = tmp_path / "doover_config.json"
-    SampleUI(None, None, None).export(fp, "sample_application")
-
+    WitmotionSensorUI(None, None, None).export(fp, "witmotion_sensors")
     data = json.loads(fp.read_text())
-    assert "ui_schema" in data["sample_application"]
-    assert data["sample_application"]["ui_schema"]["type"] == "uiApplication"
-    assert "is_working" in data["sample_application"]["ui_schema"]["children"]
+    ui_schema = data["witmotion_sensors"]["ui_schema"]
+    assert ui_schema["type"] == "uiApplication"
+    children = ui_schema["children"]
+    assert "velocity_peak" in children
+    assert "displacement_peak" in children
+    assert "frequency_dominant" in children
+    assert "temperature" in children
+    assert "link_state" in children

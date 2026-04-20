@@ -1,11 +1,8 @@
 [project]
-name = "sample"
+name = "witmotion-sim"
 version = "0.1.0"
-description = "Sample simulator for the app template"
+description = "WTVB01-485 Modbus TCP simulator"
 requires-python = ">=3.11"
 dependencies = [
-    "pydoover>=1.0.0a8",
+    "pymodbus>=3.6.0,<3.10",
 ]
-
-[project.scripts]
-doover-app-run = "main:main"

@@ -1,5 +1,15 @@
 {
-    "digital_outputs_enabled": true,
-    "a_funny_message": "yeeha",
-    "simulator_app_key": "sim_app_key"
+    "modbus_id": 80,
+    "poll_period": 1.0,
+    "velocity_scale": 1.0,
+    "displacement_scale": 1.0,
+    "frequency_scale": 0.1,
+    "read_failure_threshold": 3,
+    "error_retry_seconds": 30,
+    "modbus_config": {
+        "name": "default",
+        "bus_type": "tcp",
+        "tcp_uri": "127.0.0.1:5020",
+        "tcp_timeout": 2.0
+    }
 }

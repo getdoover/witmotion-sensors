@@ -2,23 +2,31 @@ services:
   device_agent:
     image: spaneng/doover_device_agent:apps
     network_mode: host
+    environment:
+      - WSS_ENDPOINT=none
+      - WSS_AUTH_TOKEN=none
 
-  sample_simulator:
+  modbus_iface:
+    image: spaneng/doover_modbus_iface
+    network_mode: host
+
+  witmotion_sim:
     build: ./sample
     network_mode: host
     restart: unless-stopped
-    depends_on:
-      - device_agent
     environment:
-      - APP_KEY=sim_app_key
+      - MODBUS_HOST=127.0.0.1
+      - MODBUS_PORT=5020
+      - SLAVE_ID=80
 
-  sample_application:
+  witmotion_sensors:
     build: ../
     network_mode: host
     restart: unless-stopped
     depends_on:
       - device_agent
-      - sample_simulator
+      - modbus_iface
+      - witmotion_sim
     environment:
       - APP_KEY=test_app_key
       - CONFIG_FP=/app/simulators/app_config.json

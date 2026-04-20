@@ -12,7 +12,7 @@
         ],
         "owner_org_key": "",
         "icon_url": "https://play-lh.googleusercontent.com/vDImiFHO48oVQoAeW7roYZF2Ii1_VLXhopxJHPc_zk-skvdSggH9h1ojsJFW0KgG5g=w240-h480-rw",
-        "image_name": "ghcr.io/getdoover/witmotion_sensors",
+        "image_name": "ghcr.io/getdoover/witmotion-sensors:main",
         "container_registry_profile_id": 93955828574386692,
         "build_args": "--platform linux/amd64,linux/arm64",
         "config_schema": {

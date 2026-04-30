@@ -6,12 +6,6 @@ from .app_tags import WitmotionSensorTags
 
 
 class WitmotionSensorUI(ui.UI):
-    link_state = ui.TextVariable(
-        "Link State",
-        value=WitmotionSensorTags.link_state,
-        name="link_state",
-    )
-
     temperature = ui.NumericVariable(
         "Temperature",
         value=WitmotionSensorTags.temperature,
@@ -49,6 +43,12 @@ class WitmotionSensorUI(ui.UI):
         value=WitmotionSensorTags.frequency_dominant,
         name="frequency_dominant",
         precision=1,
+    )
+
+    link_state = ui.BooleanVariable(
+        "Link State",
+        value=WitmotionSensorTags.link_state,
+        name="link_state",
     )
 
 

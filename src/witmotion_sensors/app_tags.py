@@ -2,7 +2,7 @@ from pydoover.tags import Tag, Tags
 
 
 class WitmotionSensorTags(Tags):
-    link_state = Tag("string", default="disconnected")
+    link_state = Tag("boolean", default=False)
     last_comms_ok = Tag("boolean", default=False)
     comms_error_count = Tag("integer", default=0)
 

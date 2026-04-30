@@ -31,7 +31,7 @@ class WitmotionSensorApp(Application):
         self.consecutive_failures = 0
         self.loop_target_period = float(self.config.poll_period.value)
         await self.link.connect()
-        await self.tags.link_state.set(self.link.state)
+        await self._publish_link_state()
 
     async def main_loop(self):
         # Keep loop period in sync with config in case the user edits it at runtime.
@@ -107,16 +107,31 @@ class WitmotionSensorApp(Application):
             elif self.link.state == "disconnected":
                 await self.link.connect()
                 await self.link.connected()
-            await self.tags.link_state.set(self.link.state)
+        await self._publish_link_state()
 
     async def _handle_read_failure(self):
         self.consecutive_failures += 1
         await self.tags.last_comms_ok.set(False)
         await self.tags.comms_error_count.set(self.consecutive_failures)
+        await self._clear_readings()
 
         threshold = int(self.config.read_failure_threshold.value)
         if self.link.state == "connecting":
             await self.link.connect_failed()
         elif self.link.state == "online" and self.consecutive_failures >= threshold:
             await self.link.read_failed()
-        await self.tags.link_state.set(self.link.state)
+        await self._publish_link_state()
+
+    async def _clear_readings(self):
+        for name in (
+            "accel_x", "accel_y", "accel_z",
+            "velocity_x", "velocity_y", "velocity_z",
+            "displacement_x", "displacement_y", "displacement_z",
+            "frequency_x", "frequency_y", "frequency_z",
+            "temperature",
+            "velocity_peak", "displacement_peak", "frequency_dominant",
+        ):
+            await self.tags.get(name).set(None)
+
+    async def _publish_link_state(self):
+        await self.tags.link_state.set(self.link.state == "online")

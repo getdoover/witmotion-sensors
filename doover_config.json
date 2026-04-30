@@ -289,22 +289,12 @@
             "type": "uiApplication",
             "name": "$config.app().APP_KEY",
             "children": {
-                "link_state": {
-                    "name": "link_state",
-                    "type": "uiVariable",
-                    "displayString": "Link State",
-                    "showActivity": true,
-                    "position": 51,
-                    "hidden": false,
-                    "varType": "string",
-                    "currentValue": "$tag.app().link_state:string:\"disconnected\""
-                },
                 "temperature": {
                     "name": "temperature",
                     "type": "uiVariable",
                     "displayString": "Temperature",
                     "showActivity": true,
-                    "position": 52,
+                    "position": 51,
                     "hidden": false,
                     "varType": "float",
                     "currentValue": "$tag.app().temperature:number:0",
@@ -338,7 +328,7 @@
                     "type": "uiVariable",
                     "displayString": "Peak Velocity (mm/s)",
                     "showActivity": true,
-                    "position": 53,
+                    "position": 52,
                     "hidden": false,
                     "varType": "float",
                     "currentValue": "$tag.app().velocity_peak:number:0",
@@ -379,7 +369,7 @@
                     "type": "uiVariable",
                     "displayString": "Peak Displacement (um)",
                     "showActivity": true,
-                    "position": 54,
+                    "position": 53,
                     "hidden": false,
                     "varType": "float",
                     "currentValue": "$tag.app().displacement_peak:number:0",
@@ -390,11 +380,21 @@
                     "type": "uiVariable",
                     "displayString": "Dominant Frequency (Hz)",
                     "showActivity": true,
-                    "position": 55,
+                    "position": 54,
                     "hidden": false,
                     "varType": "float",
                     "currentValue": "$tag.app().frequency_dominant:number:0",
                     "decPrecision": 1
+                },
+                "link_state": {
+                    "name": "link_state",
+                    "type": "uiVariable",
+                    "displayString": "Link State",
+                    "showActivity": true,
+                    "position": 55,
+                    "hidden": false,
+                    "varType": "bool",
+                    "currentValue": "$tag.app().link_state:boolean:false"
                 }
             }
         },

@@ -23,6 +23,7 @@ READ_BLOCK_START = 0x34
 READ_BLOCK_COUNT = 19
 
 ACCEL_SCALE_G_PER_LSB = 16.0 / 32768.0
+VELOCITY_SCALE_MM_S_PER_LSB = 0.001
 TEMPERATURE_DIVISOR = 100.0
 
 
@@ -98,9 +99,9 @@ def decode_block(
         accel_x=s[0] * ACCEL_SCALE_G_PER_LSB,
         accel_y=s[1] * ACCEL_SCALE_G_PER_LSB,
         accel_z=s[2] * ACCEL_SCALE_G_PER_LSB,
-        velocity_x=s[6] * velocity_scale,
-        velocity_y=s[7] * velocity_scale,
-        velocity_z=s[8] * velocity_scale,
+        velocity_x=s[6] * VELOCITY_SCALE_MM_S_PER_LSB * velocity_scale,
+        velocity_y=s[7] * VELOCITY_SCALE_MM_S_PER_LSB * velocity_scale,
+        velocity_z=s[8] * VELOCITY_SCALE_MM_S_PER_LSB * velocity_scale,
         temperature=s[12] / TEMPERATURE_DIVISOR,
         displacement_x=s[13] * displacement_scale,
         displacement_y=s[14] * displacement_scale,

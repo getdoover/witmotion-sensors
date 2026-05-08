@@ -57,36 +57,41 @@ def test_decode_block_basic_scaling():
 
 
 def test_decode_block_velocity_and_frequency_scaling():
-    # Velocity raw equals mm/s with default scale 1.0.
+    # Velocity raw is µm/s (1 LSB = 0.001 mm/s); default trim is 1.0 so output is mm/s.
     # Frequency raw is Hz * 10 — default frequency_scale=0.1.
-    regs = _make_block(vx=5, vy=10, vz=15, fx=250, fy=305, fz=450)
+    regs = _make_block(vx=5000, vy=10000, vz=15000, fx=250, fy=305, fz=450)
     reading = decode_block(regs)
-    assert reading.velocity_x == 5
-    assert reading.velocity_y == 10
-    assert reading.velocity_z == 15
+    assert reading.velocity_x == pytest.approx(5.0)
+    assert reading.velocity_y == pytest.approx(10.0)
+    assert reading.velocity_z == pytest.approx(15.0)
     assert reading.frequency_x == pytest.approx(25.0)
     assert reading.frequency_y == pytest.approx(30.5)
     assert reading.frequency_z == pytest.approx(45.0)
 
 
 def test_decode_block_peak_and_dominant():
-    regs = _make_block(vx=3, vy=20, vz=-10, fx=200, fy=350, fz=500, dx=40, dy=60, dz=-80)
+    regs = _make_block(
+        vx=3000, vy=20000, vz=-10000,
+        fx=200, fy=350, fz=500,
+        dx=40, dy=60, dz=-80,
+    )
     reading = decode_block(regs)
-    assert reading.velocity_peak == 20  # |vy| largest
+    assert reading.velocity_peak == pytest.approx(20.0)  # |vy| largest -> 20 mm/s
     assert reading.displacement_peak == 80  # |dz| largest
     # Dominant frequency corresponds to axis with largest |velocity| -> fy
     assert reading.frequency_dominant == pytest.approx(35.0)
 
 
 def test_decode_block_custom_scales():
+    # velocity_scale is a dimensionless trim on top of the 0.001 mm/s/LSB native scaling.
     regs = _make_block(vx=100, dx=200, fx=400)
     reading = decode_block(
         regs,
-        velocity_scale=0.01,
+        velocity_scale=2.0,
         displacement_scale=0.5,
         frequency_scale=0.1,
     )
-    assert reading.velocity_x == pytest.approx(1.0)
+    assert reading.velocity_x == pytest.approx(0.2)  # 100 * 0.001 * 2.0
     assert reading.displacement_x == pytest.approx(100.0)
     assert reading.frequency_x == pytest.approx(40.0)
 

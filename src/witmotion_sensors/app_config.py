@@ -21,7 +21,7 @@ class WitmotionSensorConfig(config.Schema):
     velocity_scale = config.Number(
         "Velocity Scale",
         default=1.0,
-        description="Multiplier applied to raw velocity registers (mm/s per LSB)",
+        description="Dimensionless trim applied on top of the sensor's native 1 µm/s per LSB scaling; published values are mm/s",
         name="velocity_scale",
     )
     displacement_scale = config.Number(

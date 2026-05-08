@@ -104,8 +104,8 @@ class WitmotionSim:
             envelope * 0.8 + random.uniform(-0.3, 0.3),
             envelope * 1.0 + random.uniform(-0.3, 0.3),
         ]
-        # Units already mm/s -> write as raw int16.
-        velocity_raw = [int(v) for v in velocity_mm_s]
+        # Sensor emits 1 LSB = 1 µm/s, so convert mm/s -> raw int16.
+        velocity_raw = [int(v * 1000) for v in velocity_mm_s]
 
         # Displacement in um, small values.
         displacement_raw = [

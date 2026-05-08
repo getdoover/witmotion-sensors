@@ -1,4 +1,4 @@
-from pydoover.tags import Tag, Tags
+from pydoover.tags import Delta, Tag, Tags
 
 
 class WitmotionSensorTags(Tags):
@@ -24,9 +24,9 @@ class WitmotionSensorTags(Tags):
 
     temperature = Tag("number", default=None)
 
-    velocity_peak = Tag("number", default=None)
-    displacement_peak = Tag("number", default=None)
-    frequency_dominant = Tag("number", default=None)
+    velocity_peak = Tag("number", default=None, log_on=Delta(amount=10))
+    displacement_peak = Tag("number", default=None, log_on=Delta(amount=20))
+    frequency_dominant = Tag("number", default=None, log_on=Delta(amount=25))
 
     cmd_set_slave_id = Tag("integer", default=None)
     cmd_set_sample_rate = Tag("integer", default=None)

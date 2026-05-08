@@ -217,7 +217,7 @@
                         "null"
                     ],
                     "x-required": false,
-                    "description": "Multiplier applied to raw velocity registers (mm/s per LSB)",
+                    "description": "Dimensionless trim applied on top of the sensor's native 1 \u00b5m/s per LSB scaling; published values are mm/s",
                     "default": 1.0,
                     "x-position": 3
                 },

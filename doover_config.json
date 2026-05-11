@@ -296,6 +296,7 @@
                     "showActivity": true,
                     "position": 51,
                     "hidden": false,
+                    "units": "\u00b0C",
                     "varType": "float",
                     "currentValue": "$tag.app().temperature:number:null",
                     "decPrecision": 1,
@@ -326,10 +327,11 @@
                 "velocity_peak": {
                     "name": "velocity_peak",
                     "type": "uiVariable",
-                    "displayString": "Peak Velocity (mm/s)",
+                    "displayString": "Peak Velocity",
                     "showActivity": true,
                     "position": 52,
                     "hidden": false,
+                    "units": "mm/s",
                     "varType": "float",
                     "currentValue": "$tag.app().velocity_peak:number:null",
                     "decPrecision": 2,
@@ -367,10 +369,11 @@
                 "displacement_peak": {
                     "name": "displacement_peak",
                     "type": "uiVariable",
-                    "displayString": "Peak Displacement (um)",
+                    "displayString": "Peak Displacement",
                     "showActivity": true,
                     "position": 53,
                     "hidden": false,
+                    "units": "\u00b5m",
                     "varType": "float",
                     "currentValue": "$tag.app().displacement_peak:number:null",
                     "decPrecision": 0
@@ -378,10 +381,11 @@
                 "frequency_dominant": {
                     "name": "frequency_dominant",
                     "type": "uiVariable",
-                    "displayString": "Dominant Frequency (Hz)",
+                    "displayString": "Dominant Frequency",
                     "showActivity": true,
                     "position": 54,
                     "hidden": false,
+                    "units": "Hz",
                     "varType": "float",
                     "currentValue": "$tag.app().frequency_dominant:number:null",
                     "decPrecision": 1

@@ -11,6 +11,7 @@ class WitmotionSensorUI(ui.UI):
         value=WitmotionSensorTags.temperature,
         name="temperature",
         precision=1,
+        units="°C",
         ranges=[
             ui.Range("Cold", -20, 10, ui.Colour.blue),
             ui.Range("Normal", 10, 60, ui.Colour.green),
@@ -19,10 +20,11 @@ class WitmotionSensorUI(ui.UI):
     )
 
     velocity_peak = ui.NumericVariable(
-        "Peak Velocity (mm/s)",
+        "Peak Velocity",
         value=WitmotionSensorTags.velocity_peak,
         name="velocity_peak",
         precision=2,
+        units="mm/s",
         ranges=[
             ui.Range("Good", 0, 2.8, ui.Colour.green),
             ui.Range("Caution", 2.8, 7.1, ui.Colour.yellow),
@@ -32,15 +34,17 @@ class WitmotionSensorUI(ui.UI):
     )
 
     displacement_peak = ui.NumericVariable(
-        "Peak Displacement (um)",
+        "Peak Displacement",
         value=WitmotionSensorTags.displacement_peak,
+        units="µm",
         name="displacement_peak",
         precision=0,
     )
 
     frequency_dominant = ui.NumericVariable(
-        "Dominant Frequency (Hz)",
+        "Dominant Frequency",
         value=WitmotionSensorTags.frequency_dominant,
+        units="Hz",
         name="frequency_dominant",
         precision=1,
     )

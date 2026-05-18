@@ -31,7 +31,6 @@ class WitmotionSensorApp(Application):
         self.consecutive_failures = 0
 
         self.loop_target_period = min(0.5, self.config.poll_period.value)
-        self.tag_manager.observed_max_age = self.config.poll_period.value
 
         await self.link.connect()
         await self._publish_link_state()

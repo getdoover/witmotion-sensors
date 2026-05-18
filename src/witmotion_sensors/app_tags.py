@@ -6,27 +6,27 @@ class WitmotionSensorTags(Tags):
     last_comms_ok = Tag("boolean", default=False)
     comms_error_count = Tag("integer", default=0)
 
-    accel_x = Tag("number", default=None)
-    accel_y = Tag("number", default=None)
-    accel_z = Tag("number", default=None)
+    accel_x = Tag("number", default=None, live=True)
+    accel_y = Tag("number", default=None, live=True)
+    accel_z = Tag("number", default=None, live=True)
 
-    velocity_x = Tag("number", default=None)
-    velocity_y = Tag("number", default=None)
-    velocity_z = Tag("number", default=None)
+    velocity_x = Tag("number", default=None, live=True)
+    velocity_y = Tag("number", default=None, live=True)
+    velocity_z = Tag("number", default=None, live=True)
 
-    displacement_x = Tag("number", default=None)
-    displacement_y = Tag("number", default=None)
-    displacement_z = Tag("number", default=None)
+    displacement_x = Tag("number", default=None, live=True)
+    displacement_y = Tag("number", default=None, live=True)
+    displacement_z = Tag("number", default=None, live=True)
 
-    frequency_x = Tag("number", default=None)
-    frequency_y = Tag("number", default=None)
-    frequency_z = Tag("number", default=None)
+    frequency_x = Tag("number", default=None, live=True)
+    frequency_y = Tag("number", default=None, live=True)
+    frequency_z = Tag("number", default=None, live=True)
 
-    temperature = Tag("number", default=None)
+    temperature = Tag("number", default=None, live=True)
 
-    velocity_peak = Tag("number", default=None, log_on=Delta(amount=10))
-    displacement_peak = Tag("number", default=None, log_on=Delta(amount=20))
-    frequency_dominant = Tag("number", default=None, log_on=Delta(amount=25))
+    velocity_peak = Tag("number", default=None, log_on=Delta(amount=10), live=True)
+    displacement_peak = Tag("number", default=None, log_on=Delta(amount=20), live=True)
+    frequency_dominant = Tag("number", default=None, log_on=Delta(amount=25), live=True)
 
     cmd_set_slave_id = Tag("integer", default=None)
     cmd_set_sample_rate = Tag("integer", default=None)

@@ -25,8 +25,8 @@ class WitmotionSensorTags(Tags):
     temperature = Tag("number", default=None, live=True)
 
     velocity_peak = Tag("number", default=None, log_on=Delta(amount=10), live=True)
-    displacement_peak = Tag("number", default=None, log_on=Delta(amount=20), live=True)
-    frequency_dominant = Tag("number", default=None, log_on=Delta(amount=25), live=True)
+    displacement_peak = Tag("number", default=None, log_on=Delta(amount=10_000), live=True)
+    frequency_dominant = Tag("number", default=None, log_on=Delta(amount=300), live=True)
 
     cmd_set_slave_id = Tag("integer", default=None)
     cmd_set_sample_rate = Tag("integer", default=None)
